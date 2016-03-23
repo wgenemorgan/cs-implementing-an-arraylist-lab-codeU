@@ -25,14 +25,14 @@ public class MyArrayList<E> implements List<E> {
 	// You can't instantiate an array of T[], but you can instantiate an
 	// array of Object and then typecast it.  Details at
 	// http://www.ibm.com/developerworks/java/library/j-jtp01255/index.html
-	array = (E[]) new Object[10];
+	array = null; //(E[]) new Object[10];
 	size = 0;
     }
 
     private void grow(int gap) {
 	// make a bigger array and copy over the elements,
 	// leave a gap at gap
-	E[] bigger = (E[]) new Object[array.length * 2];
+	E[] bigger = null; //(E[]) new Object[array.length * 2];
 	if (gap == size) {
 	    System.arraycopy(array, 0, bigger, 0, array.length);
 	} else if (gap == 0) {
@@ -115,17 +115,11 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public int indexOf(Object target) {
 	// TODO: fill in this method
-	if (target == null) {
-	    for (int i = 0; i < size; ++i) {
-		if (array[i] == null) {
-		    return i;
-		}
-	    }
-	} else {
-	    for (int i = 0; i < size; ++i) {
-		if (target.equals(array[i])) {
-		    return i;
-		}
+	for (int i = 0; i < array.length; ++i) {
+	    if ((target == null) && (array[i] == null)) {
+		return i;
+	    } else if (target.equals(array[i])) {
+		return i;
 	    }
 	}
 	return -1;
@@ -262,17 +256,17 @@ public class MyArrayList<E> implements List<E> {
 	throw new UnsupportedOperationException();		
     }
 
-    public static void main(String[] args) {
-    	// run a few simple tests
-	MyArrayList<Integer> mal = new MyArrayList<Integer>();
-	mal.add(1);
-	mal.add(2);
-	mal.add(3);
-	System.out.println(Arrays.toString(mal.toArray())
-			   + " size = " + mal.size);
-
-	mal.remove(new Integer(2));
-	System.out.println(Arrays.toString(mal.toArray())
-			   + " size = " + mal.size);
-    }
+    //    public static <E> void main(String[] args) {
+    //	// run a few simple tests
+    //	MyArrayList<Integer> mal = new MyArrayList<Integer>();
+    //	mal.add(1);
+    //	mal.add(2);
+    //	mal.add(3);
+    //	System.out.println(Arrays.toString(mal.toArray())
+    //			   + " size = " + mal.size);
+    //
+    //	mal.remove(new Integer(2));
+    //	System.out.println(Arrays.toString(mal.toArray())
+    //			   + " size = " + mal.size);
+    //    }
 }
